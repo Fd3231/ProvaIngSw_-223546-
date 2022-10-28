@@ -2,27 +2,22 @@ package com.example;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.util.Arrays;
-import java.util.Collections;
-
+import org.joda.time.*;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class FunnyAlgorithmsTest {
 
     private FunnyAlgorithms funnyAlgorithm;
-    public ExpectedException expectedEx = ExpectedException.none();
+    private static final String pattern = "dd/mm/yyyy HH:mm:ss.SSSS";
 
     private static int firstArraySorted[];
     private static int secondArraySorted[];
     private static int thirdArraySorted[];
     private static int firstArrayShuffled[];
     private static int secondArrayShuffled[];
-    private static int thirdArrayShuffled[];
     private static int firstArraySortedDescending[];
     private static int secondArraySortedDescending[];
 
@@ -32,15 +27,15 @@ public class FunnyAlgorithmsTest {
         firstArraySorted = new int[]{1,6,6,7,8,8,10};
         secondArraySorted= new int[]{-20,-4,8,9,22,58,64};
         thirdArraySorted = null;
-
         firstArraySortedDescending = new int[]{10,8,8,7,6,6,1};
         secondArraySortedDescending= new int[]{64,58,22,9,8,-4,-20};
     }
 
     @Before
     public void prepareTest() {
+        DateTime dt = new DateTime();
+        System.out.println(dt.toString(pattern));
         funnyAlgorithm = new FunnyAlgorithms();
-
         firstArrayShuffled= new int[]{1,10,7,6,8,6,8};
         secondArrayShuffled = new int[]{64,-4,8,20,22,58,9};
     }
@@ -74,11 +69,25 @@ public class FunnyAlgorithmsTest {
 
     @Test
     public void testStringToIntConverter() {
-
+        assertEquals(-3, funnyAlgorithm.stringToIntConverter("-3"));
+        assertEquals(500, funnyAlgorithm.stringToIntConverter("500"));
+        assertEquals(-10, funnyAlgorithm.stringToIntConverter("-10"));
+        assertEquals(32767, funnyAlgorithm.stringToIntConverter("32767"));
     }
 
-    @Test
-    public void testSwap() {
-
+    @Test(expected = IllegalArgumentException.class) 
+    public void stringToIntConverterShouldThrowException(){
+        funnyAlgorithm.stringToIntConverter("2 3");
+        funnyAlgorithm.stringToIntConverter("32768");
+        funnyAlgorithm.stringToIntConverter("A3");
+        funnyAlgorithm.stringToIntConverter("2.3");
+        
     }
+
+    @AfterClass
+    public static void endTest() {
+        DateTime dt = new DateTime();
+        System.out.println(dt.toString(pattern));
+    }
+
 }

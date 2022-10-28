@@ -67,21 +67,21 @@ public class FunnyAlgorithms {
 	 * 
 	 * @param number
 	 * @return
-	 * @throws UnsupportedOperationException
+	 * @throws IllegalArgumentException
 	 */
-	public int stringToIntConverter(String number) throws Exception {
+	public int stringToIntConverter(String number) {
         long occurrences = number.chars().filter(c -> c == '-').count();
 		if (number.contains(" ") || occurrences > 1 || (occurrences == 1 && !number.startsWith("-"))) {
-			throw new Exception("Error");
+			throw new IllegalArgumentException("Error");
         }
 		for (int i = 0; i<number.length(); i++) {
 			if (!Character.isDigit(number.charAt(i)) && !Character.toString(number.charAt(i)).equals("-")) {
-				throw new Exception("Error");
+				throw new IllegalArgumentException("Error");
 			}
 		}
         int n = Integer.parseInt(number);
         if (n < -32768 || n > 32767) {
-            throw new Exception("Error");
+            throw new IllegalArgumentException("Error");
         }
 		
 		return Integer.parseInt(number);
