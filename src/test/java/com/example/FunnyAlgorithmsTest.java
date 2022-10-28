@@ -23,6 +23,8 @@ public class FunnyAlgorithmsTest {
     private static int firstArrayShuffled[];
     private static int secondArrayShuffled[];
     private static int thirdArrayShuffled[];
+    private static int firstArraySortedDescending[];
+    private static int secondArraySortedDescending[];
 
 
     @BeforeClass
@@ -31,14 +33,16 @@ public class FunnyAlgorithmsTest {
         secondArraySorted= new int[]{-20,-4,8,9,22,58,64};
         thirdArraySorted = null;
 
-        firstArrayShuffled= new int[]{1,10,7,6,8};
-        secondArrayShuffled = new int[]{64,-4,8,20,22,58,9};
-        thirdArrayShuffled= null;
+        firstArraySortedDescending = new int[]{10,8,8,7,6,6,1};
+        secondArraySortedDescending= new int[]{64,58,22,9,8,-4,-20};
     }
 
     @Before
     public void prepareTest() {
         funnyAlgorithm = new FunnyAlgorithms();
+
+        firstArrayShuffled= new int[]{1,10,7,6,8,6,8};
+        secondArrayShuffled = new int[]{64,-4,8,20,22,58,9};
     }
 
     @Test
@@ -54,11 +58,18 @@ public class FunnyAlgorithmsTest {
 
     @Test
     public void testAscendingSelectionSort() {
+        funnyAlgorithm.selectionSort(firstArrayShuffled, 0);
+        assertArrayEquals(firstArraySorted, firstArrayShuffled);
+        funnyAlgorithm.selectionSort(secondArraySorted, 0);
+        assertArrayEquals(secondArraySorted, secondArrayShuffled);
     }
 
     @Test
     public void testDescendingSelectionSort() {
-
+        funnyAlgorithm.selectionSort(firstArrayShuffled, 1);
+        assertArrayEquals(firstArraySortedDescending, firstArrayShuffled);
+        funnyAlgorithm.selectionSort(secondArraySorted, 1);
+        assertArrayEquals(secondArraySortedDescending, secondArrayShuffled);
     }
 
     @Test
