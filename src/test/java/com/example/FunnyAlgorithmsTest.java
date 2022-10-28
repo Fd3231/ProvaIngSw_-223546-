@@ -1,7 +1,11 @@
 package com.example;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,15 +17,23 @@ public class FunnyAlgorithmsTest {
     private FunnyAlgorithms funnyAlgorithm;
     public ExpectedException expectedEx = ExpectedException.none();
 
-    private static int firstArray[];
-    private static int secondArray[];
-    private static int thirdArray[];
+    private static int firstArraySorted[];
+    private static int secondArraySorted[];
+    private static int thirdArraySorted[];
+    private static int firstArrayShuffled[];
+    private static int secondArrayShuffled[];
+    private static int thirdArrayShuffled[];
+
 
     @BeforeClass
-    public static void initArray() {
-        firstArray = new int[]{1,6,7,8,10};
-        secondArray = new int[]{-4,8,9,22};
-        thirdArray = null;
+    public static void initArrays() {
+        firstArraySorted = new int[]{1,6,6,7,8,8,10};
+        secondArraySorted= new int[]{-20,-4,8,9,22,58,64};
+        thirdArraySorted = null;
+
+        firstArrayShuffled= new int[]{1,10,7,6,8};
+        secondArrayShuffled = new int[]{64,-4,8,20,22,58,9};
+        thirdArrayShuffled= null;
     }
 
     @Before
@@ -31,17 +43,21 @@ public class FunnyAlgorithmsTest {
 
     @Test
     public void testBinarySearch() {
-        assertEquals(1, funnyAlgorithm.binarySearch(firstArray, 6));
-        assertEquals(-1, funnyAlgorithm.binarySearch(secondArray, 25));
+        assertEquals(1, funnyAlgorithm.binarySearch(firstArraySorted, 6));
+        assertEquals(-1, funnyAlgorithm.binarySearch(secondArraySorted, 25));
     }
 
     @Test(expected = NullPointerException.class)
 	public void testBinarySearchThrowsException() {
-		funnyAlgorithm.binarySearch(thirdArray, 0);
+		funnyAlgorithm.binarySearch(thirdArraySorted, 0);
 	}
 
     @Test
-    public void testSelectionSort() {
+    public void testAscendingSelectionSort() {
+    }
+
+    @Test
+    public void testDescendingSelectionSort() {
 
     }
 
