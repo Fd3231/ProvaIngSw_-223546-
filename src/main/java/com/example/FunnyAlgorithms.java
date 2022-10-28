@@ -69,9 +69,22 @@ public class FunnyAlgorithms {
 	 * @return
 	 * @throws UnsupportedOperationException
 	 */
-	public int stringToIntConverter(String number) throws UnsupportedOperationException {
-		return 0;
-		//throw new UnsupportedOperationException("To be implemented");
+	public int stringToIntConverter(String number) throws Exception {
+        long occurrences = number.chars().filter(c -> c == '-').count();
+		if (number.contains(" ") || occurrences > 1 || (occurrences == 1 && !number.startsWith("-"))) {
+			throw new Exception("Error");
+        }
+		for (int i = 0; i<number.length(); i++) {
+			if (!Character.isDigit(number.charAt(i)) && !Character.toString(number.charAt(i)).equals("-")) {
+				throw new Exception("Error");
+			}
+		}
+        int n = Integer.parseInt(number);
+        if (n < -32768 || n > 32767) {
+            throw new Exception("Error");
+        }
+		
+		return Integer.parseInt(number);
 	}
 
 }
